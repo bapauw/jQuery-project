@@ -5,12 +5,19 @@
     </head>
 
     <body>
-        <div id="playground" style="min-width: 500px; min-height: 500px; border: 1px solid #000;">
+        <div id="playground" style="width: 700px; height: 250px; background: #DDD;">
+            <div id="background"></div>
             
+            <div id="welcomeScreen" style="width: 700px; height: 250px; position: absolute; z-index: 100;">
+                <div style="position: absolute; top: 120px; width: 700px; color: white;">
+                    <div id="loadingBar" style="position: relative; left: 100px; height: 15px; width: 0px; background: red;"></div><br />
+                    <center><a style="cursor: pointer;" id="startbutton">click here to show the demo</a></center>
+                </div>
+            </div>
         </div>
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="http://cdn.gamequeryjs.com/jquery.gamequery.min.js"></script> 
+        <script src="js/jquery.gamequery-0.7.1.js"></script> 
         <script src="js/script.js"></script>
     </body>
 </html>
