@@ -56,39 +56,43 @@ $(function(){
     });
 
     $.playground().registerCallback(function() {
-        $("#player")[0].player.update();
-              if (jQuery.gameQuery.keyTracker[65]){ // Left (a)
-                var nextpos = parseInt($("#player").css("left"))-5;
-                if(nextpos > 0){
-                  $("#player").css("left", ""+nextpos+"px");
-                }
-              }
+        /*$("#player")[0].player.update();
         
-              if (jQuery.gameQuery.keyTracker[68]){ // Right (d)
-                var nextpos = parseInt($("#player").css("left"))+5;
-                if(nextpos < PLAYGROUND_WIDTH - 100){
-                  $("#player").css("left", ""+nextpos+"px");
-                }
-              }
+        if (jQuery.gameQuery.keyTracker[65]) { // Left (a)
+            var nextpos = parseInt($("#player").css("left"))-5;
+            
+            if (nextpos > 0) {
+              $("#player").css("left", ""+nextpos+"px");
+            }
+        }
+
+        if (jQuery.gameQuery.keyTracker[68]) { // Right (d)
+            var nextpos = parseInt($("#player").css("left"))+5;
+            
+            if (nextpos < PLAYGROUND_WIDTH - 100) {
+              $("#player").css("left", ""+nextpos+"px");
+            }
+        }
+
+        if (jQuery.gameQuery.keyTracker[87]) { // up (w)
+            var nextpos = parseInt($("#player").css("top"))-3;
+            
+            if (nextpos > 0) {
+              $("#player").css("top", ""+nextpos+"px");
+            }
+        }*/
         
-              if (jQuery.gameQuery.keyTracker[87]){ // up (w)
-                var nextpos = parseInt($("#player").css("top"))-3;
-                if(nextpos > 0){
-                  $("#player").css("top", ""+nextpos+"px");
-                }
-              }
-        
-       var newPos = (parseInt($("#background1").css("left")) - smallStarSpeed - PLAYGROUND_WIDTH)
+        var newPos = (parseInt($("#background1").css("left")) - smallStarSpeed - PLAYGROUND_WIDTH)
                               % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
-      $("#background1").css("left", newPos);
-
-      newPos = (parseInt($("#background2").css("left")) - smallStarSpeed - PLAYGROUND_WIDTH)
+        $("#background1").css("left", newPos);
+        
+        newPos = (parseInt($("#background2").css("left")) - smallStarSpeed - PLAYGROUND_WIDTH)
                          % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
-      $("#background2").css("left", newPos);
+        $("#background2").css("left", newPos);
 
-      newPos = (parseInt($("#background3").css("left")) - mediumStarSpeed - PLAYGROUND_WIDTH)
+        newPos = (parseInt($("#background3").css("left")) - mediumStarSpeed - PLAYGROUND_WIDTH)
                          % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
-      $("#background3").css("left", newPos);
+        $("#background3").css("left", newPos);
     }, REFRESH_RATE);
     
     playerAnimation["idle"] = new $.gameQuery.Animation({imageURL: "img/main.png"});
