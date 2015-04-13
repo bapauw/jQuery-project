@@ -5,8 +5,8 @@
  
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d"),
-    width = 500,
-    height = 200,
+    width = 800,
+    height = 400,
     player = {
       x : width/2,
       y : height - 5,
@@ -59,8 +59,8 @@ function update(){
         player.x = 0;     
     }    
   
-    if(player.y >= height-player.height){
-        player.y = height - player.height;
+    if(player.y >= height-player.height - 70){
+        player.y = height - player.height - 70;
         player.jumping = false;
     }
  

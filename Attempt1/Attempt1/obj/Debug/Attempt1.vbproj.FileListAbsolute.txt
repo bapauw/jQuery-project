@@ -1,9 +1,0 @@
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\bin\Attempt1.dll.config
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\bin\Attempt1.dll
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\bin\Attempt1.pdb
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\bin\Attempt1.xml
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\obj\Debug\Attempt1.Resources.resources
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\obj\Debug\Attempt1.vbproj.GenerateResource.Cache
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\obj\Debug\Attempt1.dll
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\obj\Debug\Attempt1.xml
-R:\ROC\JavaScript\BrowserGame\Attempt1\Attempt1\obj\Debug\Attempt1.pdb

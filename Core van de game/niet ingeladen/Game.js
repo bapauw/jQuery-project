@@ -1,4 +1,4 @@
-﻿//Load sprites
+//Load sprites
 var mainChar = loadSprite("mainchar");
 var enemy = loadSprite("enemy");
 
@@ -6,7 +6,7 @@ var enemy = loadSprite("enemy");
 mainchar.x = 275;
 mainchar.y = 380;
 
-function update(){
+function update() {
 	if(key[37]) mainchar.turn(-2);
 	if(key[39]) mainchar.turn(2);
 	if(key[40]) mainchar.move(5, 0);
