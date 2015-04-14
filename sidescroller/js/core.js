@@ -24,10 +24,10 @@ var canvas = document.getElementById("canvas"),
     
     object = {
         x: 450,
-        y: 140,
+        y: 275,
         
         width: 140,
-        height: 190
+        height: 90
     },
         
     keys = [],
@@ -46,14 +46,17 @@ function update(){
     if (keys[38] || keys[32])
     {
         // up arrow or space
-
+        
+        player.oldY = player.y;
+        
         if (!player.jumping){
             player.jumping = true;
-            player.velY = -player.speed*2;
+            player.velY = -player.speed * 2;
         }
     }
     
-    if (keys[39]) {
+    if (keys[39])
+    {
         // right arrow
 
         if (player.velX < player.speed) {
@@ -62,7 +65,8 @@ function update(){
         }
     }
 
-    if (keys[37]) {         
+    if (keys[37])
+    {
         // left arrow
 
         if (player.velX > -player.speed){
@@ -71,9 +75,7 @@ function update(){
         }
     }
     
- 
     player.velX *= friction;
- 
     player.velY += gravity;
  
     player.x += player.velX;
@@ -88,7 +90,8 @@ function update(){
         player.x = 0;     
     }
   
-    if (player.y >= height-player.height - 55){
+    if (player.y >= height-player.height - 55)
+    {
         player.y = height - player.height - 55;
         player.jumping = false;
     }
@@ -98,14 +101,14 @@ function update(){
     ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
     ctx.drawImage(document.getElementById("objectHill"), object.x, object.y); 
     
-    if(hitObject()){
-        stopMovement();
+    if (hitTestObject(player, object)){
+        stopMovementHor();
+    }
+    if(hitTestObject(player, object) && player.jumping){
+        stopMovementVert();
     }
     
-    // ctx.fillStyle = "red";
-    // ctx.fillRect(player.x, player.y, player.width, player.height);
- 
-  requestAnimationFrame(update);
+    requestAnimationFrame(update);
 }
  
 document.body.addEventListener("keydown", function(e) {
@@ -120,18 +123,27 @@ window.addEventListener("load",function(){
     update();
 });
 
-function stopMovement(){
-    player.x = player.oldX;   
+function stopMovementHor(){
+    player.x = player.oldX;
 }
 
-function hitObject() {
+function stopMovementVert(){
+    player.y = player.oldY;   
+}
+
+function hitTestObject(object1, object2){
+    console.log("player x: " + player.x);
+    console.log("player oldX: " + player.oldX);
+    console.log("object X: " + object.x);
     
-    if (((player.x + player.width) > object.x && player.x < (object.x + object.width)) || (player.x < (object.x + object.width) && player.x > object.x)){
-        console.log("player x: " + player.x);
-        console.log("player oldX: " + player.oldX);
-        console.log("object X: " + object.x);
-        
-        return true   
-    }
-        
+    if(object1.x + object1.width < object2.x) return false;
+    if(object1.x > object2.x + object2.width) return false;
+    if(object1.y + object1.height < object2.y) return false;
+    if(object1.y > object2.y + object2.height) return false;
+    
+     return true;
+}
+
+function jump(){
+       
 }
