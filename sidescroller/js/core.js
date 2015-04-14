@@ -3,28 +3,31 @@
     window.requestAnimationFrame = requestAnimationFrame;
 })();
  
+
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d"),
     width = 800,
     height = 400,
     
     player = {
-      x : width/2,
+      x : 300,
       y : height - 5,
       width : 41,
       height : 79,
       speed: 3,
       velX: 0,
       velY: 0,
-      jumping: false
+      jumping: false,
+      oldX: 0,
+      oldY: 0
     },
     
     object = {
-        x: width / 2,
-        y: height - 122,
+        x: 450,
+        y: 140,
         
-        width: 30,
-        height: 60
+        width: 140,
+        height: 190
     },
         
     keys = [],
@@ -37,30 +40,37 @@ canvas.height = height;
 function update(){
   // check keys
     
-    if (keys[38] || keys[32]) {
+    document.getElementById("locX").innerHTML = "Player X: " + player.x + ", Object X:" + object.x;
+    document.getElementById("locY").innerHTML = "Player Y: " + player.y + ", Object Y:" + object.y;
+    
+    if (keys[38] || keys[32])
+    {
         // up arrow or space
-        
-      if(!player.jumping){
-       player.jumping = true;
-       player.velY = -player.speed*2;
-      }
+
+        if (!player.jumping){
+            player.jumping = true;
+            player.velY = -player.speed*2;
+        }
     }
     
     if (keys[39]) {
         // right arrow
-        
-        if (player.velX < player.speed) {             
+
+        if (player.velX < player.speed) {
+            player.oldX = player.x;
             player.velX++;         
-         }     
-    }   
-    
+        }
+    }
+
     if (keys[37]) {         
-        // left arrow   
-        
-        if (player.velX > -player.speed) {
+        // left arrow
+
+        if (player.velX > -player.speed){
+            player.oldX = player.x;
             player.velX--;
         }
     }
+    
  
     player.velX *= friction;
  
@@ -88,6 +98,10 @@ function update(){
     ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
     ctx.drawImage(document.getElementById("objectHill"), object.x, object.y); 
     
+    if(hitObject()){
+        stopMovement();
+    }
+    
     // ctx.fillStyle = "red";
     // ctx.fillRect(player.x, player.y, player.width, player.height);
  
@@ -105,3 +119,19 @@ document.body.addEventListener("keyup", function(e) {
 window.addEventListener("load",function(){
     update();
 });
+
+function stopMovement(){
+    player.x = player.oldX;   
+}
+
+function hitObject() {
+    
+    if (((player.x + player.width) > object.x && player.x < (object.x + object.width)) || (player.x < (object.x + object.width) && player.x > object.x)){
+        console.log("player x: " + player.x);
+        console.log("player oldX: " + player.oldX);
+        console.log("object X: " + object.x);
+        
+        return true   
+    }
+        
+}
