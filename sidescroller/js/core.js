@@ -10,7 +10,7 @@ var canvas = document.getElementById("canvas"),
     player = {
       x : width/2,
       y : height - 5,
-      width : 34,
+      width : 41,
       height : 79,
       speed: 3,
       velX: 0,
@@ -59,8 +59,8 @@ function update(){
         player.x = 0;     
     }    
   
-    if(player.y >= height-player.height - 70){
-        player.y = height - player.height - 70;
+    if(player.y >= height-player.height - 55){
+        player.y = height - player.height - 55;
         player.jumping = false;
     }
  
