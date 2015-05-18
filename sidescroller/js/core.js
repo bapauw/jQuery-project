@@ -1,5 +1,6 @@
 $(document).ready(function() {
     document.getElementById("audioTheme").volume = 0.5;
+    initializaGame();
 });
 
 function drawObject(img, flipH, flipV) {
@@ -59,17 +60,27 @@ var canvas = document.getElementById("canvas"),
     
     canvas.width = width;
     canvas.height = height;
-
+    
+    //var object = new Object();
+    
 function initializaGame(){
-       
+    //alert("hello");
+    createInitGameObjects();
+    createObject();
+//    var VERT_DIST = 30;
+//    var pointCounter = 0;
+//    var objects = [];
+    //ctx.drawImage(document.getElementById("objectHill"), 100, VERT_DIST);
+    
 }
+
+//Math.floor(Math.random() * canvas.width) + 1
  
 function update() {
     $("#locX").text("Player X: " + player.x + ", Object X:" + object.x);
     $("#locY").text("Player Y: " + player.y + ", Object Y:" + object.y);
-    
     ctx.clearRect(0,0, width,height);
-    
+    recreateObject();
     if (keys[38] || keys[32]) {
         // Omhoog, spatie
         
@@ -131,25 +142,29 @@ function update() {
             player.jumping = false;
     }
     
-    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y);
-
-    if (hitTestObject(player, object) && (keys[37] || keys[39]) && !player.jumping) {
-        stopMovementHor();
-        player.velX = 0;
+    for(var i = 0; i < objectList.length; i++){
+        if (hitTestObject(player, objectList[i]) && (keys[37] || keys[39]) && !player.jumping) {
+            stopMovementHor();
+            player.velX = 0;
+        }
     }
-
-    if (hitTestObject(player, object) && player.jumping)
-        stopMovementVert();
-
-    if (hitTestObject(player, object) && player.jumping) {
-        gravity = 0;
-        player.velY = 0;
-
-        //player.jumping = false;
+    for(var i = 0; i < objectList.length; i++){
+        if (hitTestObject(player, objectList[i]) && player.jumping){
+            stopMovementHor();
+        }
     }
+    for(var i = 0; i < objectList.length; i++){
+        if(hitTestObject(player, objectList[i]) && player.jumping){
+            gravity = 0;
+            player.velY = 0;
 
-    if (!hitTestObject(player, object)) {
-        gravity = OLDGRAVITY;   
+            player.jumping = false;    
+        }
+    }
+    for(var i = 0; i < objectList.length; i++){
+        if (!hitTestObject(player, objectList[i])) {
+            gravity = OLDGRAVITY;   
+        }
     }
 
     requestAnimationFrame(update);
