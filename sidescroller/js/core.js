@@ -1,8 +1,26 @@
+$( document ).ready(function() {
+    document.getElementById("audioTheme").volume = 0.5;
+});
+
+function drawObject(img, flipH, flipV) {
+    var width = player.width;
+    var height = player.height;
+    
+    var scaleH = flipH ? -1 : 1,
+        scaleV = flipV ? -1 : 1,
+        posX = flipH ? (width * -1) - player.x : player.x,
+        posY = flipV ? height * -1 : player.y;
+    
+    ctx.save();
+    ctx.scale(scaleH, scaleV);
+    ctx.drawImage(img, posX, posY, width, height);
+    ctx.restore();
+};
+
 (function() {
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     window.requestAnimationFrame = requestAnimationFrame;
 })();
- 
 
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d"),
@@ -10,24 +28,26 @@ var canvas = document.getElementById("canvas"),
     height = 400,
     
     player = {
-      x : 300,
-      y : height - 5,
-      width : 41,
-      height : 79,
-      speed: 3,
-      velX: 0,
-      velY: 0,
-      jumping: false,
-      oldX: 0,
-      oldY: 0
+        x : 300,
+        y : height - 5,
+        width : 60,
+        height : 60,
+        speed: 3,
+        velX: 0,
+        velY: 0,
+        jumping: false,
+        oldX: 0,
+        oldY: 0,
+        sprite: document.getElementById("mainChar"),
+        direction: "right",
     },
     
     object = {
         x: 450,
         y: 275,
         
-        width: 140,
-        height: 90
+        width: 150,
+        height: 0
     },
         
     keys = [],
@@ -37,42 +57,60 @@ var canvas = document.getElementById("canvas"),
 canvas.width = width;
 canvas.height = height;
  
-function update(){
-  // check keys
+function update() {
+    $("#locX").text("Player X: " + player.x + ", Object X:" + object.x);
+    $("#locY").text("Player Y: " + player.y + ", Object Y:" + object.y);
     
-    document.getElementById("locX").innerHTML = "Player X: " + player.x + ", Object X:" + object.x;
-    document.getElementById("locY").innerHTML = "Player Y: " + player.y + ", Object Y:" + object.y;
+    ctx.clearRect(0,0, width,height);
     
-    if (keys[38] || keys[32])
-    {
-        // up arrow or space
+    // drawObject(player.sprite, 0,0);
+    // ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
+    
+    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y);
+    
+    if (keys[38] || keys[32]) {
+        // Omhoog, spatie
         
         player.oldY = player.y;
         
-        if (!player.jumping){
+        if (!player.jumping) {
             player.jumping = true;
             player.velY = -player.speed * 2;
+            
+            var audio = new Audio('audio/jump.wav');
+                audio.play();
         }
     }
     
-    if (keys[39])
-    {
-        // right arrow
+    if (keys[39]) {
+        // Rechts
+
+        drawObject(player.sprite, 0,0);
 
         if (player.velX < player.speed) {
             player.oldX = player.x;
-            player.velX++;         
+            player.velX++;    
         }
+        
+        player.direction = "right";
     }
-
-    if (keys[37])
-    {
-        // left arrow
+    else if (keys[37]) {
+        // Links
+        
+        drawObject(player.sprite, 1,0);
 
         if (player.velX > -player.speed){
             player.oldX = player.x;
             player.velX--;
         }
+        
+        player.direction = "left";
+    }
+    else {
+        if (player.direction == "right")
+            drawObject(player.sprite, 0,0);
+        else
+            drawObject(player.sprite, 1,0);
     }
     
     player.velX *= friction;
@@ -90,21 +128,17 @@ function update(){
         player.x = 0;     
     }
   
-    if (player.y >= height-player.height - 55)
+    if (player.y >= height-player.height - 80)
     {
-        player.y = height - player.height - 55;
+        player.y = height - player.height - 80;
         player.jumping = false;
     }
  
-    ctx.clearRect(0,0,width,height);
-    
-    ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
-    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y); 
-    
     if (hitTestObject(player, object)){
         stopMovementHor();
     }
-    if(hitTestObject(player, object) && player.jumping){
+    
+    if (hitTestObject(player, object) && player.jumping) {
         stopMovementVert();
     }
     
@@ -119,31 +153,27 @@ document.body.addEventListener("keyup", function(e) {
     keys[e.keyCode] = false;
 });
  
-window.addEventListener("load",function(){
+window.addEventListener("load",function() {
     update();
 });
 
-function stopMovementHor(){
+function stopMovementHor() {
     player.x = player.oldX;
 }
 
-function stopMovementVert(){
-    player.y = player.oldY;   
+function stopMovementVert() {
+    player.y = player.oldY;
 }
 
-function hitTestObject(object1, object2){
+function hitTestObject(object1, object2) {
     console.log("player x: " + player.x);
     console.log("player oldX: " + player.oldX);
     console.log("object X: " + object.x);
     
-    if(object1.x + object1.width < object2.x) return false;
-    if(object1.x > object2.x + object2.width) return false;
-    if(object1.y + object1.height < object2.y) return false;
-    if(object1.y > object2.y + object2.height) return false;
+    if (object1.x + object1.width < object2.x) return false;
+    if (object1.x > object2.x + object2.width) return false;
+    if (object1.y + object1.height < object2.y) return false;
+    if (object1.y > object2.y + object2.height) return false;
     
      return true;
-}
-
-function jump(){
-       
 }
