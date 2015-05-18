@@ -78,8 +78,8 @@ function initializaGame(){
 }
  
 function update() {
-    $("#locX").text("Player X: " + player.x + ", Object X:" + object.x);
-    $("#locY").text("Player Y: " + player.y + ", Object Y:" + object.y);
+    $("#locX").text("Player X: " + Math.floor(player.x));
+    $("#locY").text("Player Y: " + Math.floor(player.y));
     
     ctx.clearRect(0,0, width,height);
     
@@ -200,23 +200,6 @@ window.addEventListener("load",function() {
 
 function stopMovementHor() {
     player.x = player.oldX;
-}
-
-function stopMovementVert() {
-    player.y = player.oldY;
-}
-
-function hitTestObject(object1, object2) {
-    console.log("player x: " + player.x);
-    console.log("player oldX: " + player.oldX);
-    console.log("object X: " + object.x);
-    
-    if (object1.x + object1.width < object2.x) return false;
-    if (object1.x > object2.x + object2.width) return false;
-    if (object1.y + object1.height < object2.y) return false;
-    if (object1.y > object2.y + object2.height) return false;
-    
-    return true;
 }
 
 function stopMovementVert() {
