@@ -2,6 +2,8 @@ $(document).ready(function() {
     document.getElementById("audioTheme").volume = 0.5;
 });
 
+var created = false;
+
 function drawObject(img, flipH, flipV) {
     var width = player.width;
     var height = player.height;
@@ -40,6 +42,17 @@ var canvas = document.getElementById("canvas"),
         oldY: 0,
         sprite: document.getElementById("mainChar"),
         direction: "right",
+        score: 0
+    },
+    
+    scoreBall = {
+        x: 200,
+        y: 300,
+        
+        width: 20,
+        height: 20,
+        
+        score: 50
     },
     
     object = {
@@ -131,8 +144,26 @@ function update() {
             player.jumping = false;
     }
     
-    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y);
+    if (hitTestObject(player, scoreBall))
+    {
+        player.score += scoreBall.score;
+        
+        scoreBall.x = Math.floor(Math.random() * canvas.width) + 1;
+        scoreBall.y = Math.floor(Math.random() * canvas.height) + 1;
+    }
 
+    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y);
+    ctx.drawImage(document.getElementById("scoreBall"), scoreBall.x, scoreBall.y);
+    
+    /*if (scoreBall.score <= 0) {
+        var ballX = Math.floor(Math.random() * canvas.width) + 1;
+        var ballY = Math.floor(Math.random() * canvas.height) + 1;
+        
+        ctx.drawImage(document.getElementById("scoreBall"), ballX, ballY);
+    }*/
+    
+    document.getElementById("score").innerHTML = "Score: " + player.score;
+    
     if (hitTestObject(player, object) && (keys[37] || keys[39]) && !player.jumping) {
         stopMovementHor();
         player.velX = 0;

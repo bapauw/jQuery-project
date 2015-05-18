@@ -1,3 +1,7 @@
+* {
+    font-family: Verdana;
+}
+
 canvas {
     border: 1px solid black;
     background-image: url("../img/background.png");
@@ -16,4 +20,10 @@ canvas {
 .toggleSound:hover{
     cursor: pointer;
     cursor: hand;
+}
+
+#score {
+    position: absolute;
+    top: 10px;
+    left: 75px;
 }
