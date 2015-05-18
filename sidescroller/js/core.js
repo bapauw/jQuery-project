@@ -66,11 +66,6 @@ function update() {
     
     ctx.clearRect(0,0, width,height);
     
-    // drawObject(player.sprite, 0,0);
-    // ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
-    
-    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y);
-    
     if (keys[38] || keys[32]) {
         // Omhoog, spatie
         
