@@ -4,6 +4,16 @@ canvas {
     background-size: cover;
 }
 
-.clickable img:hover{
-    cursor: hand;   
+.toggleSound {
+    position: absolute;
+    
+    top: 20px;
+    left: 20px;
+    
+    max-width: 30px;
+}
+
+.toggleSound:hover{
+    cursor: pointer;
+    cursor: hand;
 }
