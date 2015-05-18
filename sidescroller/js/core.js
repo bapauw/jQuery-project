@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
     document.getElementById("audioTheme").volume = 0.5;
 });
 
@@ -54,10 +54,11 @@ var canvas = document.getElementById("canvas"),
     friction = 0.8,
     gravity = 0.2;
 
-var OLDGRAVITY = 0.2;
- var collide = false;
-canvas.width = width;
-canvas.height = height;
+    var OLDGRAVITY = 0.2;
+    var collide = false;
+    
+    canvas.width = width;
+    canvas.height = height;
  
 function update() {
     $("#locX").text("Player X: " + player.x + ", Object X:" + object.x);
@@ -87,32 +88,30 @@ function update() {
     if (keys[39]) {
         // Rechts
 
-        drawObject(player.sprite, 0,0);
+        player.direction = "right";
+
+        if (player.direction == "right")
+            drawObject(player.sprite, 0,0);
 
         if (player.velX < player.speed) {
             player.oldX = player.x;
             player.velX++;    
         }
         
-        player.direction = "right";
+        
     }
     else if (keys[37]) {
         // Links
         
-        drawObject(player.sprite, 1,0);
+        player.direction = "left";
+
+        if (player.direction == "left")
+            drawObject(player.sprite, 1,0);
 
         if (player.velX > -player.speed){
             player.oldX = player.x;
             player.velX--;
         }
-        
-        player.direction = "left";
-    }
-    else {
-        if (player.direction == "right")
-            drawObject(player.sprite, 0,0);
-        else
-            drawObject(player.sprite, 1,0);
     }
     
     player.velX *= friction;
@@ -135,36 +134,34 @@ function update() {
         player.y = height - player.height - 80;
         player.jumping = false;
     }
- 
-<<<<<<< HEAD
-    if (hitTestObject(player, object)){
-=======
+
+    //if (hitTestObject(player, object)) {
+    
     ctx.clearRect(0,0,width,height);
-    
-    ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
-    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y); 
-    
-    if (hitTestObject(player, object) && (keys[37] || keys[39]) && !player.jumping){
->>>>>>> origin/master
+
+    drawObject(player.sprite, 0,0);
+    //ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
+    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y);
+
+    if (hitTestObject(player, object) && (keys[37] || keys[39]) && !player.jumping) {
         stopMovementHor();
         player.velX = 0;
     }
-<<<<<<< HEAD
-    
-    if (hitTestObject(player, object) && player.jumping) {
+
+    if (hitTestObject(player, object) && player.jumping)
         stopMovementVert();
-=======
-    if(hitTestObject(player, object) && player.jumping){
-        
+
+    if (hitTestObject(player, object) && player.jumping) {
         gravity = 0;
         player.velY = 0;
+
         //player.jumping = false;
->>>>>>> origin/master
     }
-    
-    if(!hitTestObject(player, object)){
+
+    if (!hitTestObject(player, object)) {
         gravity = OLDGRAVITY;   
     }
+
     requestAnimationFrame(update);
 }
  
@@ -184,7 +181,6 @@ function stopMovementHor() {
     player.x = player.oldX;
 }
 
-<<<<<<< HEAD
 function stopMovementVert() {
     player.y = player.oldY;
 }
@@ -199,22 +195,25 @@ function hitTestObject(object1, object2) {
     if (object1.y + object1.height < object2.y) return false;
     if (object1.y > object2.y + object2.height) return false;
     
-     return true;
-=======
-function stopMovementVert(){
-      player.y = player.oldY;
+    return true;
 }
 
-function hitTestObject(object1, object2){    
-    if(object1.x + object1.width < object2.x) return false;
-    if(object1.x > object2.x + object2.width) return false;
-    if(object1.y + object1.height < object2.y) return false;
-    if(object1.y > object2.y + object2.height) return false;
+function stopMovementVert() {
+    player.y = player.oldY;
+}
+
+function hitTestObject(object1, object2) {
+    if (object1.x + object1.width < object2.x) return false;
+    if (object1.x > object2.x + object2.width) return false;
+    if (object1.y + object1.height < object2.y) return false;
+    if (object1.y > object2.y + object2.height) return false;
+    
     return true;
 }
-function verHitTestObject(object1, object2){
-    if(object1.y + object1.height < object2.y) return false;
-    if(object1.y > object2.y + object2.height) return false;     
+    
+function verHitTestObject(object1, object2) {
+    if (object1.y + object1.height < object2.y) return false;
+    if (object1.y > object2.y + object2.height) return false;
+    
     return true;
->>>>>>> origin/master
 }
