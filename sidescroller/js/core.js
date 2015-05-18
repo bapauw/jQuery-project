@@ -53,7 +53,9 @@ var canvas = document.getElementById("canvas"),
     keys = [],
     friction = 0.8,
     gravity = 0.2;
- 
+
+var OLDGRAVITY = 0.2;
+ var collide = false;
 canvas.width = width;
 canvas.height = height;
  
@@ -134,14 +136,35 @@ function update() {
         player.jumping = false;
     }
  
+<<<<<<< HEAD
     if (hitTestObject(player, object)){
+=======
+    ctx.clearRect(0,0,width,height);
+    
+    ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
+    ctx.drawImage(document.getElementById("objectHill"), object.x, object.y); 
+    
+    if (hitTestObject(player, object) && (keys[37] || keys[39]) && !player.jumping){
+>>>>>>> origin/master
         stopMovementHor();
+        player.velX = 0;
     }
+<<<<<<< HEAD
     
     if (hitTestObject(player, object) && player.jumping) {
         stopMovementVert();
+=======
+    if(hitTestObject(player, object) && player.jumping){
+        
+        gravity = 0;
+        player.velY = 0;
+        //player.jumping = false;
+>>>>>>> origin/master
     }
     
+    if(!hitTestObject(player, object)){
+        gravity = OLDGRAVITY;   
+    }
     requestAnimationFrame(update);
 }
  
@@ -161,6 +184,7 @@ function stopMovementHor() {
     player.x = player.oldX;
 }
 
+<<<<<<< HEAD
 function stopMovementVert() {
     player.y = player.oldY;
 }
@@ -176,4 +200,21 @@ function hitTestObject(object1, object2) {
     if (object1.y > object2.y + object2.height) return false;
     
      return true;
+=======
+function stopMovementVert(){
+      player.y = player.oldY;
+}
+
+function hitTestObject(object1, object2){    
+    if(object1.x + object1.width < object2.x) return false;
+    if(object1.x > object2.x + object2.width) return false;
+    if(object1.y + object1.height < object2.y) return false;
+    if(object1.y > object2.y + object2.height) return false;
+    return true;
+}
+function verHitTestObject(object1, object2){
+    if(object1.y + object1.height < object2.y) return false;
+    if(object1.y > object2.y + object2.height) return false;     
+    return true;
+>>>>>>> origin/master
 }
