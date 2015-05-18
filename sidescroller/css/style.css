@@ -3,3 +3,7 @@ canvas {
     background-image: url("../img/background.png");
     background-size: cover;
 }
+
+.clickable img:hover{
+    cursor: hand;   
+}

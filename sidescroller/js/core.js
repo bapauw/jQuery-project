@@ -59,6 +59,10 @@ var canvas = document.getElementById("canvas"),
     
     canvas.width = width;
     canvas.height = height;
+
+function initializaGame(){
+       
+}
  
 function update() {
     $("#locX").text("Player X: " + player.x + ", Object X:" + object.x);
@@ -202,4 +206,16 @@ function verHitTestObject(object1, object2) {
     if (object1.y > object2.y + object2.height) return false;
     
     return true;
+}
+
+function muteSound(){
+    var sound = document.getElementById('audioTheme');
+    var icon = document.getElementById('sound');
+    if(!sound.muted){
+        icon.src = "img/mute.png";
+        sound.muted = true;    
+    }else {
+        icon.src = "img/sound.png";
+        sound.muted = false;   
+    }
 }
