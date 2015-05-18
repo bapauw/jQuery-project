@@ -66,7 +66,7 @@ function update() {
     
     ctx.clearRect(0,0, width,height);
     
-    // drawObject(player.sprite, 0,0);
+    drawObject(player.sprite, 0,0);
     // ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
     
     ctx.drawImage(document.getElementById("objectHill"), object.x, object.y);
@@ -84,8 +84,7 @@ function update() {
                 audio.play();
         }
     }
-    
-    if (keys[39]) {
+    else if (keys[39]) {
         // Rechts
 
         player.direction = "right";
@@ -97,8 +96,6 @@ function update() {
             player.oldX = player.x;
             player.velX++;    
         }
-        
-        
     }
     else if (keys[37]) {
         // Links
