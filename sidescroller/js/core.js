@@ -84,13 +84,11 @@ function update() {
                 audio.play();
         }
     }
-    else if (keys[39]) {
+    
+    if (keys[39]) {
         // Rechts
 
         player.direction = "right";
-
-        if (player.direction == "right")
-            drawObject(player.sprite, 0,0);
 
         if (player.velX < player.speed) {
             player.oldX = player.x;
@@ -102,21 +100,23 @@ function update() {
         
         player.direction = "left";
 
-        if (player.direction == "left")
-            drawObject(player.sprite, 1,0);
-
         if (player.velX > -player.speed){
             player.oldX = player.x;
             player.velX--;
         }
     }
     
+    if (player.direction == "right")
+        drawObject(player.sprite, 0,0);
+    else if (player.direction == "left")
+        drawObject(player.sprite, 1,0);
+    
     player.velX *= friction;
     player.velY += gravity;
  
     player.x += player.velX;
     player.y += player.velY;
- 
+    
     if (player.x >= width-player.width)
     {
         player.x = width-player.width;
@@ -129,15 +129,9 @@ function update() {
     if (player.y >= height-player.height - 80)
     {
         player.y = height - player.height - 80;
-        player.jumping = false;
+            player.jumping = false;
     }
-
-    //if (hitTestObject(player, object)) {
     
-    ctx.clearRect(0,0,width,height);
-
-    drawObject(player.sprite, 0,0);
-    //ctx.drawImage(document.getElementById("mainChar"), player.x, player.y);
     ctx.drawImage(document.getElementById("objectHill"), object.x, object.y);
 
     if (hitTestObject(player, object) && (keys[37] || keys[39]) && !player.jumping) {
